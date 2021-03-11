@@ -1,0 +1,104 @@
+.container {
+  width: 100vw;
+  max-width: 1400px;
+
+  margin: 0 auto;
+}
+
+.container header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  padding: 18px 26px;
+}
+
+.container header section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+  flex: 1;
+  max-width: 400px;
+}
+
+.container header section > div {
+  width: 100%;
+  height: 90px;
+  padding: 4px;
+
+  text-align: left;
+}
+
+.container header section > div:first-child {
+  margin-right: 1.6rem;
+}
+
+.container header section div span {
+  font-size: 0.875rem;
+  font-weight: 300;
+}
+
+.container header section div p {
+  font-size: 1.375rem;
+  margin-bottom: 8px;
+}
+
+.container header section div > strong {
+  font-size: 1.875rem;
+  font-weight: 500;
+}
+
+.container header section div > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  width: 100%;
+}
+
+.container header section div > div button {
+  width: 30px;
+  height: 30px;
+  
+  cursor: pointer;
+  border: none;
+  background: none;
+
+  outline-color: var(--white);
+}
+
+.container header .switchesContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+  justify-content: space-around;
+
+  width: 15rem;
+}
+
+.container header .switchesContainer > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  
+  width: 86px;
+  height: 22px;
+}
+
+.container header .switchesContainer > div span {
+  font-weight: 300;
+  font-size: 0.875rem;
+}
+
+.container header .switchesContainer > div .switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 18px;
+
+  border: 4px solid var(--white);
+  border-radius: 10px;  
+}
