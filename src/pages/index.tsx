@@ -16,6 +16,8 @@ export default function Home() {
       </Head>
 
       <Header />
+
+      <img src="/background.png" className={styles.imgBackground} />
     </div>
   )
 }
