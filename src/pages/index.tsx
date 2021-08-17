@@ -1,23 +1,31 @@
-import React from 'react';
-import Head from 'next/head';
+import Head from "next/head";
+import { Header } from "../components/Header/Header";
 
-import { Header } from '../components/Header';
-
-import styles from '../styles/pages/Home.module.css';
+import styles from "../styles/home.module.scss";
+import { IoMdCloudOutline } from "react-icons/io";
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>OnCloudNine</title>
-        {/* <link rel="icon" href="/favicon.ico" /> */}
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@300;400;500;700&display=swap" rel="stylesheet" />
       </Head>
 
-      <Header />
+      <main className={styles.container}>
+        <Header />
 
-      <img src="/background.png" className={styles.imgBackground} />
-    </div>
-  )
+        <section>
+          <IoMdCloudOutline size={60} />
+
+          <div>
+            <h3>11°C</h3>
+            <div>
+              <h2>Belo Horizonte, Brazil</h2>
+              <time>Sunday 15 August, 2021</time>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  );
 }
