@@ -1,5 +1,6 @@
 import { createContext, ReactNode } from "react";
 import { toast, ToastContainer, ToastOptions } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type ContextData = {
   notifyErr: (props: NotifyErrProps) => void;
