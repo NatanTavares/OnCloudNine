@@ -1,10 +1,12 @@
 import Head from "next/head";
-import { Header } from "../components/Header/Header";
+import { useWeather } from "../hooks/useWeather";
+import { Header } from "../components/Header";
 
 import styles from "../styles/home.module.scss";
 import { IoMdCloudOutline } from "react-icons/io";
 
 export default function Home() {
+  const { city, date, temp } = useWeather();
   return (
     <>
       <Head>
@@ -14,17 +16,19 @@ export default function Home() {
       <main className={styles.container}>
         <Header />
 
-        <section>
-          <IoMdCloudOutline size={60} />
+        {!!city && (
+          <section>
+            <IoMdCloudOutline size={60} />
 
-          <div>
-            <h3>11°C</h3>
             <div>
-              <h2>Belo Horizonte, Brazil</h2>
-              <time>Sunday 15 August, 2021</time>
+              <div>
+                <h3>{temp}°C</h3>
+                <h2>{city}</h2>
+                <time>{date}</time>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </main>
     </>
   );
