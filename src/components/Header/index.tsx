@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useWeather } from "../../hooks/useWeather";
 import { useError } from "../../hooks/useError";
@@ -37,7 +37,7 @@ export function Header() {
   return (
     <header className={styles.container}>
       <form className={styles.searchBar} onSubmit={handleSubmit(onSubmit)}>
-        <input placeholder="Search by city" {...register("cityName")} />
+        <input placeholder="Pesquisa por cidade" {...register("cityName")} />
         <button type="submit">
           <IoMdSearch />
         </button>
