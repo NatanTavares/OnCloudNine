@@ -3,10 +3,10 @@ import { useWeather } from "../hooks/useWeather";
 import { Header } from "../components/Header";
 
 import styles from "../styles/home.module.scss";
-import { IoMdCloudOutline } from "react-icons/io";
+import { IoIosAdd, IoMdCloudOutline } from "react-icons/io";
 
 export default function Home() {
-  const { city, date, temp } = useWeather();
+  const { data, loading } = useWeather();
   return (
     <>
       <Head>
@@ -14,20 +14,36 @@ export default function Home() {
       </Head>
 
       <main className={styles.container}>
-        <Header />
+        {loading ? (
+          <h1>Carregando...</h1>
+        ) : (
+          <>
+            <Header />
 
-        {!!city && (
-          <section>
-            <IoMdCloudOutline size={60} />
+            {!!data ? (
+              <section>
+                <>
+                  <IoMdCloudOutline size={60} />
 
-            <div>
-              <div>
-                <h3>{temp}°C</h3>
-                <h2>{city}</h2>
-                <time>{date}</time>
-              </div>
-            </div>
-          </section>
+                  <div>
+                    <div>
+                      <h3>{data.temp}°C</h3>
+                      <h2>{data.city}</h2>
+                      <time>{data.date}</time>
+                    </div>
+                  </div>
+                </>
+              </section>
+            ) : (
+              <button
+                className={styles.btnPlus}
+                type="button"
+                onClick={() => {}}
+              >
+                <IoIosAdd size={40} />
+              </button>
+            )}
+          </>
         )}
       </main>
     </>
