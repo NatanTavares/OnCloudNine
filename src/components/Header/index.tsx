@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useWeather } from "../../hooks/useWeather";
 import { useError } from "../../hooks/useError";
@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import styles from "./styles.module.scss";
-import { IoMdSearch } from "react-icons/io";
+import { IoMdSearch, IoMdThermometer } from "react-icons/io";
 
 const schema = yup.object().shape({
   cityName: yup
@@ -36,10 +36,13 @@ export function Header() {
 
   return (
     <header className={styles.container}>
+      <div>
+        <IoMdThermometer size={20} />
+      </div>
       <form className={styles.searchBar} onSubmit={handleSubmit(onSubmit)}>
         <input placeholder="Pesquisa por cidade" {...register("cityName")} />
         <button type="submit">
-          <IoMdSearch />
+          <IoMdSearch size={16} />
         </button>
       </form>
     </header>
