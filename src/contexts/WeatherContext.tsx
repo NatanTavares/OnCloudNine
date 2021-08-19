@@ -2,7 +2,7 @@ import { createContext, ReactNode, useState } from "react";
 import { useError } from "../hooks/useError";
 import axios from "axios";
 
-type WeatherData = {
+type ResponseData = {
   data: {
     results: {
       temp: number;
@@ -12,10 +12,15 @@ type WeatherData = {
   };
 };
 
-type ContextData = {
+type WeatherData = {
   temp: number;
   date: string;
   city: string;
+};
+
+type ContextData = {
+  data: WeatherData;
+  loading: boolean;
   getWeatherData: (cityName: string) => Promise<void>;
 };
 
@@ -28,27 +33,27 @@ export const WeatherDataContext = createContext({} as ContextData);
 export function WeatherDataProvider({ children }: ProviderProps) {
   const { notifyErr } = useError();
 
-  const [temp, setTemp] = useState(0);
-  const [date, setDate] = useState("");
-  const [city, setCity] = useState("");
+  const [data, setData] = useState<WeatherData | null>(null);
+  const [loading, setLoading] = useState(false);
 
   async function getWeatherData(cityName: string) {
+    setLoading(true);
     try {
-      const response = await axios.post<WeatherData>("api/weatherData", {
+      const response = await axios.post<ResponseData>("api/weatherData", {
         cityName,
       });
       const { city, date, temp } = response.data.data.results;
+      setData({ city, date, temp });
 
-      setCity(city);
-      setDate(date);
-      setTemp(temp);
+      setLoading(false);
     } catch (error) {
       notifyErr({ err: error });
+      setLoading(false);
     }
   }
 
   return (
-    <WeatherDataContext.Provider value={{ temp, date, city, getWeatherData }}>
+    <WeatherDataContext.Provider value={{ data, getWeatherData, loading }}>
       {children}
     </WeatherDataContext.Provider>
   );
