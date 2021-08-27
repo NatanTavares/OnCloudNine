@@ -1,9 +1,10 @@
 import Head from "next/head";
 import { useWeather } from "../hooks/useWeather";
 import { Header } from "../components/Header";
+import { Card } from "../components/Card";
 
 import styles from "../styles/home.module.scss";
-import { IoIosAdd, IoMdCloudOutline } from "react-icons/io";
+import { IoIosAdd } from "react-icons/io";
 
 export default function Home() {
   const { data, loading } = useWeather();
@@ -21,19 +22,7 @@ export default function Home() {
             <Header />
 
             {!!data ? (
-              <section>
-                <>
-                  <IoMdCloudOutline size={60} />
-
-                  <div>
-                    <div>
-                      <h3>{data.temp}°C</h3>
-                      <h2>{data.city}</h2>
-                      <time>{data.date}</time>
-                    </div>
-                  </div>
-                </>
-              </section>
+              <Card data={data} />
             ) : (
               <button
                 className={styles.btnPlus}
