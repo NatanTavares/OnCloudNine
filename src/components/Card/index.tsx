@@ -4,14 +4,18 @@ import { IconType } from "react-icons";
 import styles from "./styles.module.scss";
 
 type Props = {
-  data: { temp: number; date: string; city: string };
-  icon: IconType;
+  data: {
+    city: string;
+    date: string;
+    icon: IconType;
+    temp: number;
+  };
 };
 
-export function Card({ data, icon }: Props) {
+export function Card({ data }: Props) {
   return (
     <section className={styles.container}>
-      {React.createElement(icon, { size: 70 })}
+      {React.createElement(data.icon, { size: 70 })}
       <div>
         <div>
           <h3>{data.temp}°C</h3>
