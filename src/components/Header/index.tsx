@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { MutableRefObject, useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useWeather } from "../../hooks/useWeather";
 import { useError } from "../../hooks/useError";
@@ -8,6 +8,10 @@ import * as yup from "yup";
 import styles from "./styles.module.scss";
 import { IoMdSearch, IoMdThermometer } from "react-icons/io";
 
+type HeaderProps = {
+  inputRef: MutableRefObject<HTMLInputElement>;
+};
+
 const schema = yup.object().shape({
   cityName: yup
     .string()
@@ -15,7 +19,7 @@ const schema = yup.object().shape({
     .max(58, "O nome da cidade deve ter no máximo 58 caracteres"),
 });
 
-export function Header() {
+export function Header({ inputRef }: HeaderProps) {
   const { getWeatherData } = useWeather();
   const { notifyErr } = useError();
 
@@ -40,7 +44,11 @@ export function Header() {
         <IoMdThermometer size={20} />
       </div>
       <form className={styles.searchBar} onSubmit={handleSubmit(onSubmit)}>
-        <input placeholder="Pesquisa por cidade" {...register("cityName")} />
+        <input
+          {...register("cityName")}
+          placeholder="Pesquisa por cidade"
+          ref={inputRef}
+        />
         <button type="submit">
           <IoMdSearch size={16} />
         </button>

@@ -29,21 +29,23 @@
     width: 18rem;
 
     border-radius: 0.25rem;
-    border: 1px solid var(--gray-600);
+    border: 2px solid var(--gray-700);
     background: transparent;
-
-    overflow: hidden;
 
     input {
       flex: 1;
       padding: 0.25rem;
 
       border: none;
-      border-right: 1px solid var(--gray-600);
+      border-right: 2px solid var(--gray-700);
 
       color: var(--gray-600);
       background: transparent;
       outline: none;
+
+      &:focus {
+        color: var(--gray-100);
+      }
     }
 
     button {
