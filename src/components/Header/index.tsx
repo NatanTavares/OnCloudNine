@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect } from "react";
+import { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useWeather } from "../../hooks/useWeather";
 import { useError } from "../../hooks/useError";
@@ -8,8 +8,12 @@ import * as yup from "yup";
 import styles from "./styles.module.scss";
 import { IoMdSearch, IoMdThermometer } from "react-icons/io";
 
+type FormValues = {
+  cityName: string;
+};
+
 type HeaderProps = {
-  inputRef: MutableRefObject<HTMLInputElement>;
+  inputIsFocus: boolean;
 };
 
 const schema = yup.object().shape({
@@ -19,18 +23,21 @@ const schema = yup.object().shape({
     .max(58, "O nome da cidade deve ter no máximo 58 caracteres"),
 });
 
-export function Header({ inputRef }: HeaderProps) {
+export function Header({ inputIsFocus }: HeaderProps) {
   const { getWeatherData } = useWeather();
   const { notifyErr } = useError();
 
   const {
-    register,
     handleSubmit,
+    register,
+    setFocus,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm<FormValues>({ resolver: yupResolver(schema) });
 
   async function onSubmit({ cityName }) {
-    await getWeatherData(cityName);
+    if (!!cityName.trim()) {
+      await getWeatherData(cityName);
+    }
   }
 
   useEffect(() => {
@@ -38,17 +45,17 @@ export function Header({ inputRef }: HeaderProps) {
     !!err && notifyErr({ err });
   }, [onSubmit]);
 
+  useEffect(() => {
+    setFocus("cityName");
+  }, [inputIsFocus]);
+
   return (
     <header className={styles.container}>
       <div>
         <IoMdThermometer size={20} />
       </div>
       <form className={styles.searchBar} onSubmit={handleSubmit(onSubmit)}>
-        <input
-          {...register("cityName")}
-          placeholder="Pesquisa por cidade"
-          ref={inputRef}
-        />
+        <input {...register("cityName")} placeholder="Pesquisa por cidade" />
         <button type="submit">
           <IoMdSearch size={16} />
         </button>

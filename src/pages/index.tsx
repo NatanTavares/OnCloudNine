@@ -1,5 +1,5 @@
-import { useRef } from "react";
 import Head from "next/head";
+import { useState } from "react";
 import { useWeather } from "../hooks/useWeather";
 import { Header } from "../components/Header";
 import { Card } from "../components/Card";
@@ -8,12 +8,8 @@ import styles from "../styles/home.module.scss";
 import { IoIosAdd } from "react-icons/io";
 
 export default function Home() {
+  const [inputIsFocus, setInputIsFocus] = useState(false);
   const { data, loading } = useWeather();
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  function handleFocusToInput() {
-    inputRef.current.focus();
-  }
 
   return (
     <>
@@ -26,7 +22,7 @@ export default function Home() {
           <h1>Carregando...</h1>
         ) : (
           <>
-            <Header inputRef={inputRef} />
+            <Header inputIsFocus={inputIsFocus} />
 
             {!!data ? (
               <Card data={data} />
@@ -34,7 +30,9 @@ export default function Home() {
               <button
                 className={styles.btnPlus}
                 type="button"
-                onClick={handleFocusToInput}
+                onClick={() => {
+                  setInputIsFocus(!inputIsFocus);
+                }}
               >
                 <IoIosAdd size={40} />
               </button>
