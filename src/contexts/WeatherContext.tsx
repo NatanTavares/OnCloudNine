@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useState } from "react";
 import { useError } from "../hooks/useError";
+import { clientApi } from "../services/api";
 import { IconType } from "react-icons/lib";
-import axios from "axios";
 
 import {
   WiCloud,
@@ -19,11 +19,13 @@ import {
 
 type ResponseData = {
   data: {
-    results: {
-      city: string;
-      date: string;
-      condition_slug: string;
-      temp: number;
+    data: {
+      results: {
+        city: string;
+        date: string;
+        condition_slug: string;
+        temp: number;
+      };
     };
   };
 };
@@ -85,10 +87,12 @@ export function WeatherDataProvider({ children }: ProviderProps) {
   async function getWeatherData(cityName: string) {
     setLoading(true);
     try {
-      const response = await axios.post<ResponseData>("api/weatherData", {
+      const response: ResponseData = await clientApi.post("weatherData", {
         cityName,
       });
-      const { city, condition_slug, date, temp } = response.data.data.results;
+
+      const { data } = response;
+      const { city, condition_slug, date, temp } = data.data.results;
       const icon = setCurrentlyIcon(condition_slug);
 
       setData({ city, date, icon, temp });
